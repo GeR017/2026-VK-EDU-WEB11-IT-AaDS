@@ -2,4 +2,4 @@
 Repository for algorithms and data structures
 
 
-Run test_graph.cpp
+Run module_3/task_1/test_graph.cpp
