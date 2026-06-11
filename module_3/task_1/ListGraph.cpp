@@ -1,52 +1,48 @@
-#include "IGraph.hpp"
+#include "ListGraph.hpp"
 
 #include <iostream>
 #include <functional>
 #include <vector>
 #include <cassert>
 
-struct ListGraph: public IGraph
-{
-public:
-    ListGraph(int size): data_(size) {}
 
-    ListGraph(const IGraph &graph) {
-        data_.resize(graph.VerticesCount());
+ListGraph::ListGraph(int size): data_(size) {}
 
-        for (int i = 0; i < graph.VerticesCount(); i++)
-            data_[i] = graph.GetNextVertices(i);
-    }
+ListGraph::ListGraph(const IGraph &graph) {
+    data_.resize(graph.VerticesCount());
 
-    ~ListGraph() {}
+    for (int i = 0; i < graph.VerticesCount(); i++)
+        data_[i] = graph.GetNextVertices(i);
+}
 
-    void
-    AddEdge(int from, int to) override {
-        assert(0 <= from && from < data_.size());
-        assert(0 <= to && to < data_.size());
-        data_[from].push_back(to);
-    }
+ListGraph::~ListGraph() {}
 
-    int
-    VerticesCount() const override {
-        return data_.size();
-    }
+void
+ListGraph::AddEdge(int from, int to)  {
+    assert(0 <= from && from < data_.size());
+    assert(0 <= to && to < data_.size());
+    data_[from].push_back(to);
+}
 
-    std::vector<int> GetNextVertices(int vertex) const override {
-        return data_[vertex];
-    }
+int
+ListGraph::VerticesCount() const  {
+    return data_.size();
+}
 
-    std::vector<int> GetPrevVertices(int vertex) const override {
-        std::vector<int> prev;
-        for (int from = 0; from < data_.size(); from++) {
-           for (int to: data_[from]) {
-               if (to == vertex)
-                   prev.push_back(from);
-           }
+std::vector<int> ListGraph::GetNextVertices(int vertex) const  {
+    return data_[vertex];
+}
+
+std::vector<int> ListGraph::GetPrevVertices(int vertex) const  {
+    std::vector<int> prev;
+    for (int from = 0; from < data_.size(); from++) {
+        for (int to: data_[from]) {
+            if (to == vertex)
+                prev.push_back(from);
         }
-        return prev;
     }
+    return prev;
+}
 
-private:
-    std::vector<std::vector<int>> data_;
-};
+
 
