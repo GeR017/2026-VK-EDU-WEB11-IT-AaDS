@@ -1,7 +1,7 @@
-#include "ListGraph.cpp"
-#include "SetGraph.cpp"
-#include "MatrixGraph.cpp"
-#include "ArcGraph.cpp"
+#include "ListGraph.hpp"
+#include "SetGraph.hpp"
+#include "MatrixGraph.hpp"
+#include "ArcGraph.hpp"
 #include <iostream>
 #include <queue>
 
